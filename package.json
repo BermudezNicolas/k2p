@@ -16,11 +16,13 @@
     "gsap": "^3.12.5",
     "lenis": "^1.1.8",
     "pinia": "^2.1.7",
+    "simplemaps": "^0.1.0",
     "split-type": "^0.3.4",
     "three": "^0.167.0",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3",
-    "vuetify": "^3.6.12"
+    "vuetify": "^3.6.12",
+    "world-svg": "^0.0.2"
   },
   "devDependencies": {
     "@mdi/font": "^7.4.47",

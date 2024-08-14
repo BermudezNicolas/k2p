@@ -6,6 +6,10 @@ import {ScrollTrigger} from "gsap/ScrollTrigger"
 import SplitType from 'split-type'
 import Lenis from 'lenis'
 
+
+
+
+
 let ctx;
 let elevate;
 let slide;
@@ -21,18 +25,28 @@ onMounted(() => {
 
  document.addEventListener("DOMContentLoaded", function () {
      const cards = [
-       {id: "#spei", endTransalateX: -2000, rotate: 45},
-       {id: "#westerUnion", endTransalateX: -1000, rotate: -30},
-       {id: "#card-3", endTransalateX: -2000, rotate: 45},
-       {id: "#card-4", endTransalateX: 3500, rotate: -30},
+       {id: "#spei",rotate: 43},
+       {id: "#westerUnion", rotate: -48},
+       {id: "#sepa", endTransalateX: 5500, rotate: -40},
+       {id: "#nequi", endTransalateX: 5500, rotate: 30},
+       {id: "#swift", endTransalateX: 3500, rotate: -20},
+       {id: "#codi", endTransalateX: 3500, rotate: 30},
+       {id: "#pix", endTransalateX: 3500, rotate: 6},
+       {id: "#walmart", endTransalateX: 3500, rotate: -10},
+       {id: "#khipu", endTransalateX: 3500, rotate: -17 },
+       {id: "#upi", endTransalateX: 3500, rotate: 180},
+       {id: "#etPay", endTransalateX: 3500, rotate: 190},
+       {id: "#klap", endTransalateX: 3500, rotate: 7},
+
+
      ];
 
 
-    cards.forEach((card) => {  
+     cards.forEach((card) => {  
     ScrollTrigger.create({  
       trigger: card.id,  
       start: "top top",  
-      end: "+=2300",  
+      end: "+=3000",  
       markers: true,  
       scrub: 1,  
       onUpdate: (self) => {  
@@ -44,6 +58,8 @@ onMounted(() => {
         });  
       }  
     });  
+  
+    
   });  
   })
 
@@ -77,7 +93,7 @@ onMounted(() => {
   lenis.on('scroll', ScrollTrigger.update)
 
   gsap.ticker.add((time)=>{
-    lenis.raf(time * 1100)
+    lenis.raf(time * 700)
   })
 
   
@@ -192,6 +208,8 @@ onMounted(() => {
     }
   });
 
+
+ 
   
   
   
@@ -254,7 +272,16 @@ onMounted(() => {
   })
 
 
-
+  gsap.to("#photo1", {
+    x:-400,
+    opacity:1,
+    duration:1,
+    scrub:true,
+    scrollTrigger: {
+      trigger:"#photo1",
+      start:"top center",
+    }
+  })
 
 
 
@@ -331,15 +358,16 @@ onMounted(() => {
     <section id="section-2" class="section-2">
         <div> 
           <div>
-            <h1 class="reveal-type text-start" style=" padding:70px">
+            <h1 class="reveal-type text-start text-white" style=" padding:70px">
               Our mission is to provide a <span style="color: #1597f5;">payment service</span> as efficient as possible, to improve the user experience in any <span style="color: #1597f5;">transaction</span> that exists.
             </h1>
            
           </div>
         </div>
     </section>
-
-    <section id="section-3" class="section-3" style="padding-top: 110px;">
+     
+   
+    <section id="section-3" class="section-3 d-flex" style="padding-top: 110px;">
       <div id="info" class="my-auto">
         <div class="d-flex info-left" id="info-1">
           <div class="d-flex align-center justify-center" style="border-radius: 100%; background-color:#1597f5; height:80px; width:80px;"><v-icon icon="mdi-cogs" color="white" size="50px"></v-icon></div>
@@ -371,40 +399,74 @@ onMounted(() => {
         
      </div>
      <div class="d-flex info-right" id="info-4">
-      <div class="d-flex align-center justify-center" style="border-radius: 100%; background-color:#1597f5; height:80px; width:80px;"><v-icon icon="mdi-message-text" color="white" size="50px"></v-icon></div>
-      <div class="info-tittle">
-        Dedicated Merchant Support
-         <div class="info-para">
-          Rest easy knowing that our dedicated support team is available round-the-clock to assist you with any inquiries or issues you may encounter. 
-         </div>
-      </div>
-   </div>
+        <div class="d-flex align-center justify-center" style="border-radius: 100%; background-color:#1597f5; height:80px; width:80px;"><v-icon icon="mdi-message-text" color="white" size="50px"></v-icon></div>
+          <div class="info-tittle">
+            Dedicated Merchant Support
+            <div class="info-para">
+              Rest easy knowing that our dedicated support team is available round-the-clock to assist you with any inquiries or issues you may encounter. 
+            </div>
+          </div>
+        </div>
+     </div>
+     <div>
+      <img id="photo1" src="https://key2pay.online/wp-content/uploads/2024/01/aurora_Recurso-1busi.png"  width="399" height="385" alt="" style="position:absolute; bottom:60px; z-index:-1">
     </div>
     </section>
     <section id="panels">
 
-      <div id="panels-container" style="width: 500%;">
+      <div id="panels-container" style="width: 388%;">
         <article id="panel-2" class="panel full-screen red" style="width: 500%;">
-          <div class="container-1 d-flex align-end justify-center">
-            <span></span>
-            <h1 style="font-size: 29vw;color:white; font-weight:500; top:300px; z-index:2">A whole word of payments methods</h1>
+          <div class="container-1 d-flex align-cemter justify-center">
+            <h1 style="font-size: 22vw;color:#091321  ;  font-weight:500; z-index:2">A whole world of payments <span id="methods">methods</span></h1>
             
           </div>
-          <div class="card" id="spei" style="position: absolute; top:20%; left:10%; z-index:1">
+          <div class="card" id="spei" style="position: absolute; top:23%; left:2360px;  z-index:2;">
 
-            <img decoding="async" class="swiper-slide-image ls-is-cached lazyloaded" data-src="https://key2pay.online/wp-content/uploads/2024/04/spei_ed.png" alt="SPE Logo" src="https://key2pay.online/wp-content/uploads/2024/04/spei_ed.png" style="--smush-placeholder-width: 194px; --smush-placeholder-aspect-ratio: 194/56;">
+            <img src="@/icons/spei.png" alt="">
           </div>
-          <div class="card" id="westerUnion" style="position: absolute; top:20%; left:11%; ">
+          <div class="card" id="westerUnion" style="position: absolute;top:16%;  left:66%; z-index:2;">
 
             <img src="@/icons/westerUnion.png" alt="">
           </div>
-          <div class="card" id="sepa" style="position: absolute;  top:20%; left:12%; ">
+          <div class="card" id="sepa" style="position: absolute;  top:42%; left:2574px; z-index:2; ">
 
             <img src="@/icons/sepa.png" alt="">
           </div>
-          <div class="card" id="card-4" style="position: absolute; top:20%; left:13%; ">
+          <div class="card" id="swift" style="position: absolute; top:18%; left:60%; z-index:2; ">
 
             <img src="@/icons/swift.png" alt="">
+          </div>
+          <div class="card" id="nequi" style="position: absolute; top:51%;left:58%;z-index:2; ">
+
+            <img src="@/icons/nequi.png" alt="">
+          </div>
+          <div class="card" id="codi" style="position: absolute;  top:53%; left:64%; z-index:2;">
+
+            <img src="@/icons/codi.png" alt="">
+          </div>
+          <div class="card" id="pix" style="position: absolute; top:58%; left:79%; ">
+
+            <img src="@/icons/pix.png" alt="">
+          </div>
+          <div class="card" id="walmart" style="position: absolute; top:13%; left:83%;  z-index:2; ">
+
+            <img src="@/icons/walmart.png" alt="">
+          </div>
+          <div class="card" id="khipu" style="position: absolute; top:25%; left:74%; z-index:2;">
+
+            <img src="@/icons/khipu.png" alt="">
+          </div>
+          <div class="card" id="upi" style="position: absolute; top:58%; left:88%; ">
+
+            <img src="@/icons/upi.png" alt="">
+          </div>
+          <div class="card" id="etPay" style="position: absolute; top:15%; left:93%;  z-index:2;">
+
+            <img src="@/icons/etPay.png" alt="">
+          </div>
+          <div class="card" id="klap" style="position: absolute; top:48%; left:95%; z-index:2; ">
+
+            <img src="@/icons/klap.png" alt="">
           </div>
         </article>
 
@@ -412,6 +474,9 @@ onMounted(() => {
        
         
       </div>
+    </section>
+    <section>
+       
     </section>
     
   
@@ -487,7 +552,7 @@ h6 span {
 }
 
 .section-2{
-  background-color: white;
+  background-color:#091321;
   width: 100%;
   height: 100vh;
   z-index: 1;
@@ -522,7 +587,7 @@ h6 span {
 .container-1 {
   width: 500%;
   height: 100vh;
-  background-color:#091321;
+  background-color:white;
 }
 
 
