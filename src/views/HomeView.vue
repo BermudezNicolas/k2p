@@ -1,5 +1,6 @@
 <script setup>
 import NavBar from "@/components/navBar.vue";
+import Map from "@/components/map.vue"
 import { gsap } from "gsap";
 import { onMounted } from "vue";
 import {ScrollTrigger} from "gsap/ScrollTrigger"
@@ -12,6 +13,7 @@ import Lenis from 'lenis'
 
 let ctx;
 let elevate;
+let elevate2;
 let slide;
 let slideSection;
 onMounted(() => {
@@ -26,17 +28,17 @@ onMounted(() => {
  document.addEventListener("DOMContentLoaded", function () {
      const cards = [
        {id: "#spei",rotate: 43},
-       {id: "#westerUnion", rotate: -48},
-       {id: "#sepa", endTransalateX: 5500, rotate: -40},
-       {id: "#nequi", endTransalateX: 5500, rotate: 30},
-       {id: "#swift", endTransalateX: 3500, rotate: -20},
-       {id: "#codi", endTransalateX: 3500, rotate: 30},
-       {id: "#pix", endTransalateX: 3500, rotate: 6},
-       {id: "#walmart", endTransalateX: 3500, rotate: -10},
-       {id: "#khipu", endTransalateX: 3500, rotate: -17 },
-       {id: "#upi", endTransalateX: 3500, rotate: 180},
+       {id: "#westerUnion", rotate: -13},
+       {id: "#sepa", endTransalateX: 5500, rotate: -10},
+       {id: "#nequi", rotate: -30},
+       {id: "#swift", endTransalateX: 3500, rotate: -10},
+       {id: "#codi", endTransalateX: 3500, rotate: 10},
+       {id: "#pix", rotate: -50},
+       {id: "#walmart", endTransalateX: 3500, rotate: -20},
+       {id: "#khipu", endTransalateX: 3500, rotate: -10},
+       {id: "#upi", endTransalateX: 3500, rotate: 20},
        {id: "#etPay", endTransalateX: 3500, rotate: 190},
-       {id: "#klap", endTransalateX: 3500, rotate: 7},
+       {id: "#klap",  rotate: 10},
 
 
      ];
@@ -46,7 +48,7 @@ onMounted(() => {
     ScrollTrigger.create({  
       trigger: card.id,  
       start: "top top",  
-      end: "+=3000",  
+      end: "+=1400",  
       markers: true,  
       scrub: 1,  
       onUpdate: (self) => {  
@@ -79,9 +81,9 @@ onMounted(() => {
       anticipatePin:1,
     }   
    
-  })
- 
- 
+  });
+
+
 
   
   const lenis = new Lenis()
@@ -109,7 +111,7 @@ onMounted(() => {
         
         trigger: ".section-2",
         start: 'top top',
-        end: () => "+=" + (cont.scrollWidth - innerWidth),
+        end: () => "+=3000",
         pin:true,
         scrub:true,
         markers: true,
@@ -151,8 +153,7 @@ onMounted(() => {
           pin:"section-3",
           end: () => "+=" + (cont.scrollWidth - innerWidth),
           scrub: 3,  
-          markers:true,
-          anticipatePin: false, 
+          anticipatePin: true, 
 
   
           // ya no es necesario establecer `pin: ".section-3"` aquí si ya está definido para info-1  
@@ -184,11 +185,16 @@ onMounted(() => {
           end: () => "+=" + (cont.scrollWidth - innerWidth),
           scrub: 3,  
           anticipatePin: false, 
+          
            
       },
      
         
   })
+
+
+
+
 
 
   slideSection = gsap.timeline();
@@ -208,11 +214,65 @@ onMounted(() => {
     }
   });
 
+  document.addEventListener("DOMContentLoaded", () => {  
+  const logo = document.querySelector("#key");   
+  
+  let logoToScale = () => {  
+    if (logo.offsetWidth) {  
+      return (window.innerWidth / logo.offsetWidth) * 170; // Cambiado a 0.5 para que no se agrande tanto  
+    }  
+    return 1; // Valor por defecto si no se obtiene el ancho  
+  };  
 
- 
-  
-  
-  
+  const timelineHeader = gsap.timeline({  
+    scrollTrigger: {  
+      id: "ZOOM",  
+      trigger: "div.landing",  
+      scrub: 1,  
+      start: "top top",  
+      end: "+=100%",  // Cambiado para que el final sea más claro  
+      pin: "#landing",  
+    
+      invalidateOnRefresh: true   
+    }  
+  });  
+
+  timelineHeader.to(logo, {  
+    
+    ease: "power2.inOut",  
+    scale: logoToScale // Asegúrate de que sea un número válido  
+  });  
+
+  const projects = document.querySelector("section.projects");  
+
+  timelineHeader.to(projects, {  
+    ease: "power2.inOut",  
+    x: () => -(projects.scrollWidth - window.innerWidth),  
+    scrollTrigger: {  
+      trigger: projects,  
+      pin: "#landing-2",  
+      start: 'center top',  
+      end: () => `+=${projects.scrollWidth - window.innerWidth}`,  
+      scrub: 1,  
+      invalidateOnRefresh: true,  
+     
+    }  
+  });  
+
+  // Agregar un segundo to para escalar el logo hacia abajo o ocultarlo  
+  timelineHeader.to(logo, {  
+    duration: 1.5,  
+    ease: "power2.inOut",  
+    scale: 0, // Escalar a 0 para ocultar el logo al final  
+    scrollTrigger: {  
+      trigger: projects,  
+      start: "top top", // Cambiado a "top center" para que inicie antes  
+      end: "bottom center", // Cambiado para que termine cuando la parte inferior de projects sale del viewport  
+      scrub: 1,  
+      markers: true, // Mantener para depuración  
+    }  
+  });  
+});  
 
   gsap.ticker.lagSmoothing(0)
 
@@ -359,7 +419,7 @@ onMounted(() => {
         <div> 
           <div>
             <h1 class="reveal-type text-start text-white" style=" padding:70px">
-              Our mission is to provide a <span style="color: #1597f5;">payment service</span> as efficient as possible, to improve the user experience in any <span style="color: #1597f5;">transaction</span> that exists.
+              Our mission is to provide a <span style="color: #1597f5;">payment service</span> <br> as efficient as possible, to improve the user <br> experience in any <span style="color: #1597f5;">transaction</span> that exists.
             </h1>
            
           </div>
@@ -412,15 +472,15 @@ onMounted(() => {
       <img id="photo1" src="https://key2pay.online/wp-content/uploads/2024/01/aurora_Recurso-1busi.png"  width="399" height="385" alt="" style="position:absolute; bottom:60px; z-index:-1">
     </div>
     </section>
-    <section id="panels">
+    <section id="panels" class="section-4">
 
-      <div id="panels-container" style="width: 388%;">
-        <article id="panel-2" class="panel full-screen red" style="width: 500%;">
+      <div id="panels-container" style="width: 290%;">
+        <article id="panel-2" class="panel full-screen red" >
           <div class="container-1 d-flex align-cemter justify-center">
-            <h1 style="font-size: 22vw;color:#091321  ;  font-weight:500; z-index:2">A whole world of payments <span id="methods">methods</span></h1>
+            <h1 style="font-size: 22vw;color:white;  font-weight:500; z-index:2"> <span style="margin-right: 150px;"> </span> A whole world of payments</h1>
             
           </div>
-          <div class="card" id="spei" style="position: absolute; top:23%; left:2360px;  z-index:2;">
+          <div class="card" id="spei" style="position: absolute; top:23%; left:33%;  z-index:2;">
 
             <img src="@/icons/spei.png" alt="">
           </div>
@@ -428,59 +488,76 @@ onMounted(() => {
 
             <img src="@/icons/westerUnion.png" alt="">
           </div>
-          <div class="card" id="sepa" style="position: absolute;  top:42%; left:2574px; z-index:2; ">
+          <div class="card" id="sepa" style="position: absolute;  top:42%; left:72%; z-index:2; ">
 
             <img src="@/icons/sepa.png" alt="">
           </div>
-          <div class="card" id="swift" style="position: absolute; top:18%; left:60%; z-index:2; ">
+          <div class="card" id="swift" style="position: absolute; top:18%; left:87%; z-index:2; ">
 
             <img src="@/icons/swift.png" alt="">
           </div>
-          <div class="card" id="nequi" style="position: absolute; top:51%;left:58%;z-index:2; ">
+          <div class="card" id="nequi" style="position: absolute; top:51%;left:49%;z-index:2; ">
 
             <img src="@/icons/nequi.png" alt="">
           </div>
-          <div class="card" id="codi" style="position: absolute;  top:53%; left:64%; z-index:2;">
+          <div class="card" id="codi" style="position: absolute;  top:63%; left:66%; z-index:2;">
 
             <img src="@/icons/codi.png" alt="">
           </div>
-          <div class="card" id="pix" style="position: absolute; top:58%; left:79%; ">
+          <div class="card" id="pix" style="position: absolute;  top:55%; left:34%; z-index:2;  ">
 
             <img src="@/icons/pix.png" alt="">
           </div>
-          <div class="card" id="walmart" style="position: absolute; top:13%; left:83%;  z-index:2; ">
+          <div class="card" id="walmart" style="position: absolute; top:18%; left:42%;  z-index:2; ">
 
             <img src="@/icons/walmart.png" alt="">
           </div>
-          <div class="card" id="khipu" style="position: absolute; top:25%; left:74%; z-index:2;">
+          <div class="card" id="khipu" style="position: absolute; top:22%; left:95%; z-index:2;">
 
             <img src="@/icons/khipu.png" alt="">
           </div>
-          <div class="card" id="upi" style="position: absolute; top:58%; left:88%; ">
+          <div class="card" id="upi" style="position: absolute; top:10%; left:50%;  z-index:2;">
 
             <img src="@/icons/upi.png" alt="">
           </div>
-          <div class="card" id="etPay" style="position: absolute; top:15%; left:93%;  z-index:2;">
+          <div class="card" id="etPay" style="position: absolute; top:60%; left:93%;  z-index:2;">
 
             <img src="@/icons/etPay.png" alt="">
           </div>
-          <div class="card" id="klap" style="position: absolute; top:48%; left:95%; z-index:2; ">
+          <div class="card" id="klap" style="position: absolute;top:56%; left:82%;  z-index:2 "> 
 
             <img src="@/icons/klap.png" alt="">
           </div>
         </article>
-
-        
-       
+      
+      
         
       </div>
+     
     </section>
-    <section>
+    <section  id="landing" style="background-color: #091321; height:100vh; " >
+      <div class="landing text-center" >
+        <h1 id="key" style="font-size: 22vw;color:white;  font-weight:500; z-index:2; padding-left:20px;">methods</h1>
+      </div>
+
+    </section>
+    <div id="landing-2" class="sections" style="background-color: white; height:100vh; ">
+      <section class="projects" style="height:100vh">
+        <div class="text-center" style="padding-top: 60px; "> 
+           <Map />
+        </div>
+      </section>
+   </div>
+   <section style="background-color: white; width:100%; height:100vh; z-index:200">
+      <h1 style="z-index:200">efsefsefse</h1>
+   </section>
        
-    </section>
-    
-  
-  
+
+
+ 
+   
+
+
   </main>
 </template>
 
@@ -488,7 +565,6 @@ onMounted(() => {
 :root {
   --color-light-rgb: 255, 255, 255;
 }
-
 
 
 
@@ -573,21 +649,34 @@ h6 span {
 }
 
 
+.section-4{
+
+  width: 100%;
+  height: 100vh;
+  
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+
+
 
 #panels #panels-container {
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-wrap: nowrap;
   padding: 0;
   overflow: hidden;
-  background-color: #ddd;
+  background-color: #091321;
 }
 
 
 .container-1 {
   width: 500%;
   height: 100vh;
-  background-color:white;
+  background-color:#091321;
 }
 
 
@@ -599,9 +688,8 @@ h6 span {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  color: #333;
+  color: white;
   text-align: left;
-  border-right: 1px solid #f00;
 }
 
 
