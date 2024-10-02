@@ -1,18 +1,22 @@
 <template>  
-  <div class="container row "> 
-      <span class="blend-difference">Key2Pay</span> 
+  <div  v-if="!$vuetify.display.mobile" class="container row " > 
       <img class="key" src="@/icons/Sin_titulo-3.ico"  style="z-index: 200;"/>  
-      <h1 class=" blend-difference tittle" id="main-tittle" style="background-color: transparent;" >Key2Pay</h1>  
+      <a href="" class=" blend-difference tittle" id="main-tittle" style="background-color: transparent;" >Key2Pay</a>  
       <ul  class="blend-difference text-white nav" style=" z-index:200;" >  
         <li v-for="link in links" :key="link.id" class="mr-2">  
-          <a href="" class="link-click">  
-            <span  >{{ link.text }}</span>  
+          <a :href="link.href" class="link-click">  
+            {{ link.text }} 
           </a>  
         </li>  
       </ul> 
       <v-btn class="login-btn text-none text-white " >Login</v-btn>
       
-  </div>  
+  </div> 
+  <div v-else class="container row">
+     <img class="key" src="@/icons/Sin_titulo-3.ico"  style="z-index: 200;"/>  
+     <a href="" class=" blend-difference tittle" id="main-tittle" style="background-color: transparent;" >Key2Pay</a>  
+
+  </div> 
 </template>  
 <script setup>
 import { gsap } from "gsap";
@@ -26,7 +30,7 @@ import SplitType from 'split-type'
 let ctx;
 
 const links = ref([
-  { id: 1, text: "About Us" },
+  { id: 1, text: "About Us", href:"#section-2" },
   { id: 2, text: "Help Center" },
   { id: 3, text: "Contact" },
   { id: 4, text: "Resources" },
@@ -47,8 +51,10 @@ onMounted(() => {
      stagger:0.01,
      opacity:1,
      ease: "power3.out",     duration: 0.3,
-     delay: 1.5,
+     delay:  2.6,
   })
+
+ 
   
   gsap.to(".char", {
      y:0,
@@ -57,7 +63,7 @@ onMounted(() => {
      duration:0.000001,
    
      opacity:1,
-     delay: 1.70,
+     delay: 2.6,
 
   })
 
@@ -66,14 +72,14 @@ onMounted(() => {
      stagger:0.01,
      opacity:1,
      ease: "power3.out",     duration:0.3,
-     delay: 1.5,
+     delay:  2.6,
   })
 
 
   ctx = gsap.timeline();
 
-  
 
+    
   
   
 
@@ -83,8 +89,6 @@ onMounted(() => {
     duration:1,
   });
 
-
-
   ctx.to(".key", {
     y: -5,
     ease: "power3.out",
@@ -93,10 +97,13 @@ onMounted(() => {
   ctx.to(".key", {
     x: 138,
     opacity:1,
-    delay:0.2,
+    delay:2.2,
     duration:1,
     ease: "power3.out",
   });
+  
+
+
 });
 
 
@@ -242,6 +249,33 @@ li {
 .blend-difference {  
   mix-blend-mode: difference!important;  
 }  
+
+
+@media (max-width:768px) {
+  .key {  
+    position: fixed;  
+    left: -235px; 
+    z-index: -1;  
+    opacity: 0; 
+    scale: 2;
+  }  
+
+  .tittle {  
+    position: fixed;  
+    left: 16%;  
+    font-family: Stratos, sans-serif !important;  
+    font-weight: 1em !important;  
+    font-size: 30px;  
+    letter-spacing: -0.06em;  
+    color: rgb(248, 248, 248);
+  
+    z-index: 200;
+    
+  }
+  
+
+
+}
 
 </style>
 
